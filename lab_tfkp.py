@@ -12,7 +12,6 @@ class MandelbrotSet:
         """
         Вычисление множества Мандельброта для заданной области и итераций
         """
-        # Создаем сетку комплексных чисел
         x = np.linspace(x_min, x_max, self.width)
         y = np.linspace(y_min, y_max, self.height)
         c = x[:, np.newaxis] + 1j * y[np.newaxis, :]
@@ -29,15 +28,11 @@ class MandelbrotSet:
             diverged = (np.abs(z) > 2) & (divergence_time == 0)
             divergence_time[diverged] = iteration
             
-            # Оптимизация: обнуляем разбежавшиеся точки
             z[diverged] = 0
             
         return divergence_time
     
     def plot(self, divergence_map, x_min, x_max, y_min, y_max, title, filename=None):
-        """
-        Профессиональная визуализация результата
-        """
         plt.figure(figsize=(10, 8))
         plt.imshow(divergence_map.T, 
                   extent=[x_min, x_max, y_min, y_max],
